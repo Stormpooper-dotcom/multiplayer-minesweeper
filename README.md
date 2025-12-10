@@ -1,6 +1,6 @@
 ### Multiplayer Minesweeper
 
-Hello there, this is the multipleyer-minesweeper repo. At the moment the multiplayer has not been released yet, you can download the latest pre-release from the releases tab.
+Hello there, this is the multiplayer-minesweeper repo, development section. At the moment the multiplayer has not been released yet, you can download the latest (singleplayer) pre-release from the releases tab.
 
 ### What's inside:
 - Fully functional text-based single player Minesweeper game
