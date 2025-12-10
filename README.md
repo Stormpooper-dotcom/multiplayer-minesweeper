@@ -18,7 +18,7 @@ cd multiplayer-minesweeper
 git checkout v0.1.0-beta
 ```
 
-Or, you can download and extract the zip from [here]().
+Or, you can download and extract the zip from [here](https://github.com/Stormpooper-dotcom/multiplayer-minesweeper/releases/download/v0.1.0-beta/multiplayer-minesweeper-v0.1.0-beta.zip).
 
 ### Running (Beta)
 ```
