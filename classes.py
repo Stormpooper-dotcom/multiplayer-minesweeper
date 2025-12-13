@@ -158,7 +158,7 @@ class Game:
         self.running = True
 
     def play(self):
-        os.system("cls")
+        os.system("clear") if os.name == "posix" else os.system("cls")
         print(f"Mines: {self.board.num_mines}")  # Only print once at the top
         print(f"Remaining: {self.board.num_mines - self.board.num_flags}")
 
@@ -196,6 +196,6 @@ class Game:
                 self.ui.print_board(self.board.guess_map)
                 break
 
-            os.system("cls")
+            os.system("clear") if os.name == "posix" else os.system("cls")
             print(f"Mines: {self.board.num_mines}")  # Reprint mines after clearing screen
             print(f"Remaining: {self.board.num_mines - self.board.num_flags}")
