@@ -21,5 +21,5 @@ print("Broadcasting beacon, press Ctrl+C to stop")
 
 while True:
     data = json.dumps(game_info).encode("utf-8")
-    sock.sendto("255.255.255.255", DISCOVERY_PORT)
+    sock.sendto(data, ("255.255.255.255", DISCOVERY_PORT))
     time.sleep(1)
