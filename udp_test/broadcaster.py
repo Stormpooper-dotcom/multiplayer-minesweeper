@@ -6,8 +6,15 @@ import uuid
 MCAST_GRP = "239.255.0.1"
 MCAST_PORT = 37020
 
-HOSTNAME = socket.gethostname()
-LOCAL_IP = socket.gethostbyname(HOSTNAME)
+def get_ip():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        s.connect(("8.8.8.8", 80))
+        return s.getsockname()[0]
+    finally:
+        s.close()
+
+LOCAL_IP = get_ip()
 
 game_info = {
     "type": "beacon",
@@ -29,7 +36,7 @@ sock.setsockopt(
 
 sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 1)
 
-print("Multicast beacon started, press Ctrl+C to stop")
+print(f"Multicast beacon started on {LOCAL_IP}, press Ctrl+C to stop")
 
 while True:
     data = json.dumps(game_info).encode("utf-8")

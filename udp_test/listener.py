@@ -6,8 +6,15 @@ import time
 MCAST_GRP = "239.255.0.1"
 MCAST_PORT = 37020
 
-HOSTNAME = socket.gethostname()
-LOCAL_IP = socket.gethostbyname(HOSTNAME)
+def get_ip():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        s.connect(("8.8.8.8", 80))
+        return s.getsockname()[0]
+    finally:
+        s.close()
+
+LOCAL_IP = get_ip()
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -21,7 +28,7 @@ mreq = struct.pack(
 
 sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
 
-print("Listening for beacons...")
+print(f"Listening for beacons on {LOCAL_IP}...")
 
 seen = {}
 
