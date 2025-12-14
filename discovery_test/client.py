@@ -2,20 +2,24 @@ import socket
 import json
 from concurrent.futures import ThreadPoolExecutor
 
+DISCOVERY_PORT = 37020
+available_games = []
+
+# auto-detect local subnet
 def get_local_subnet():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:
-        # doesn’t actually send data, just figures out the LAN IP
-        s.connect(("8.8.8.8", 80))
+        s.connect(("8.8.8.8", 80))  # no packets sent
         local_ip = s.getsockname()[0]
     finally:
         s.close()
-
-    # Extract subnet (assumes /24, most LANs use 255.255.255.0)
     parts = local_ip.split(".")
-    subnet = ".".join(parts[:3]) + "."
-    return subnet
+    return ".".join(parts[:3]) + "."  # assume /24 subnet
 
+subnet = get_local_subnet()
+print(f"Scanning subnet {subnet}0/24 for servers...")
+
+# attempt connection to each host in subnet
 def try_connect(i):
     ip = subnet + str(i)
     try:
@@ -24,15 +28,10 @@ def try_connect(i):
         info = json.loads(data.decode("utf-8"))
         available_games.append((ip, info))
         s.close()
-    except (socket.timeout, ConnectionRefusedError):
+    except (socket.timeout, ConnectionRefusedError, OSError):
         pass
 
-DISCOVERY_PORT = 37020
-available_games = []
-
-subnet = get_local_subnet()
-print(f"Scanning local subnet {subnet}0/24 for servers")
-
+# scan concurrently for speed
 with ThreadPoolExecutor(max_workers=50) as executor:
     executor.map(try_connect, range(1, 255))
 
