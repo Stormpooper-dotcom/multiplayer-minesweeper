@@ -2,7 +2,7 @@ import socket
 import json
 from concurrent.futures import ThreadPoolExecutor
 
-DISCOVERY_PORT = 37020
+DISCOVERY_PORT = 51239
 available_games = []
 
 # auto-detect local subnet

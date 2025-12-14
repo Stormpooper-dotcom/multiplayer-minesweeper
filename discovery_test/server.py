@@ -2,7 +2,7 @@ import socket
 import json
 import uuid
 
-DISCOVERY_PORT = 37020
+DISCOVERY_PORT = 51239
 
 GAME_INFO = {
     "game_id": str(uuid.uuid4()),
