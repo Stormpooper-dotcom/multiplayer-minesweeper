@@ -3,7 +3,8 @@ import json
 import time
 import uuid
 
-DISCOVERY_PORT = 37020
+MCAST_GRP = "239.255.0.1"
+MCAST_PORT = 37020
 
 game_info = {
     "type": "beacon",
@@ -14,12 +15,12 @@ game_info = {
     "port": 5000
 }
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
+sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 1)
 
-print("Broadcasting beacon, press Ctrl+C to stop")
+print("Multicast beacon started, press Ctrl+C to stop")
 
 while True:
     data = json.dumps(game_info).encode("utf-8")
-    sock.sendto(data, ("192.168.0.255", DISCOVERY_PORT))
+    sock.sendto(data, (MCAST_GRP, MCAST_PORT))
     time.sleep(1)
