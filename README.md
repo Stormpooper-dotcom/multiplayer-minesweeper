@@ -1,27 +1,29 @@
 ### Multiplayer Minesweeper
 
-Hello there, this is the multipleyer-minesweeper repo. At the moment the multiplayer has not been released yet, you can download the latest pre-release from the releases tab.
+Hello there, this is the multiplayer-minesweeper repo, development section. **Multiplayer has finally been released!**
 
 ### What's inside:
-- Fully functional text-based single player Minesweeper game
-- Framework for multiplayer systems
+- Fully functional text-based **multiplayer and singleplayer** Minesweeper game
+- Framework for LAN server discovery
 - Fancy text colours
 
 ### Requirements
 - Python 3.13
 
-### Installation (Beta)
+### Installation
 Using Git:
 ```
 git clone https://github.com/Stormpooper-dotcom/multiplayer-minesweeper.git
 cd multiplayer-minesweeper
-git checkout v0.1.0-beta
+git checkout v1.0.1
 ```
 
-Or, you can download and extract the zip from [here](https://github.com/Stormpooper-dotcom/multiplayer-minesweeper/archive/refs/tags/v0.1.0-beta.zip).
+Or, you can download and extract the zip from [here](https://github.com/Stormpooper-dotcom/multiplayer-minesweeper/archive/refs/tags/v1.0.1.zip).
 
-### Running (Beta)
+### Running
 ```
 cd path/to/multiplayer-minesweeper
-python main.py <board-x> <board-y>
+python main.py host ## Starts a server
+python main.py join "<server_ip>" <username> ## Joins server at <server_ip> as <username>
+python main.py ## Starts a single-player game
 ```

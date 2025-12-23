@@ -1,12 +1,19 @@
 import sys
-
-import classes
+from singleplayer import SinglePlayerGame
+from multiplayer import MultiplayerGame
+from network.server import MultiplayerServer
 
 if __name__ == "__main__":
-    if len(sys.argv) > 2:
-        x = int(sys.argv[1])
-        y = int(sys.argv[2])
-        game = classes.Game(x, y)
+    if len(sys.argv) >= 2 and sys.argv[1] == "host":
+        server = MultiplayerServer()
+        server.start()
+    
+    elif len(sys.argv) >= 2 and sys.argv[1] == "join":
+        host = sys.argv[2]
+        name = sys.argv[3]
+        game = MultiplayerGame(host, 5000, name)
+        game.play()
+
     else:
-        game = classes.Game()
-    game.play()
+        game = SinglePlayerGame()
+        game.play()

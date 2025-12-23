@@ -1,5 +1,4 @@
 import random
-import os
 
 cell_colours = {0: "\033[32m",
                 1: "\033[31m",
@@ -86,6 +85,15 @@ class Board:
             if isinstance(cell, int) and 0 <= cell <= 8
         )
         return revealed_cells == self.width * self.height - self.num_mines
+    
+    def serialise(self):
+        return {
+            "width": self.width,
+            "height": self.height,
+            "guess_map": self.guess_map,
+            "num_flags": self.num_flags,
+            "num_mines": self.num_mines
+        }
 
 
 class ConsoleUI:
@@ -149,53 +157,3 @@ class ConsoleUI:
                 print("Out of bounds")
                 continue
             return (parts[0], x, y)
-
-
-class Game:
-    def __init__(self, width=10, height=10, num_mines=None):
-        self.board = Board(width, height, num_mines)
-        self.ui = ConsoleUI()
-        self.running = True
-
-    def play(self):
-        os.system("clear") if os.name == "posix" else os.system("cls")
-        print(f"Mines: {self.board.num_mines}")  # Only print once at the top
-        print(f"Remaining: {self.board.num_mines - self.board.num_flags}")
-
-        while self.running:
-            print("Current Board:")
-            self.ui.print_board(self.board.guess_map)
-
-            move = self.ui.handle_input(self.board.width, self.board.height)
-            if move is None:
-                print("Exiting game.")
-                break
-
-            action, x, y = move
-
-            if action == "f":
-                result = self.board.toggle_flag(x, y)
-                if result == "revealed":
-                    print("Can't flag a revealed square")
-                # Flagging done, continue next turn
-            elif action == "m":
-                result = self.board.make_move(x, y)
-                if result == "flagged":
-                    print("Can't reveal a flagged square")
-                elif result == "already":
-                    print("Square already revealed")
-                elif result == "mine":
-                    print("You hit a mine!")
-                    print("Final Board:")
-                    self.ui.print_loss_map(self.board.guess_map, self.board.mine_map, x, y)
-                    break  # Game over
-                # if result == "ok", nothing extra needed
-
-            if self.board.check_win():
-                print("You win!")
-                self.ui.print_board(self.board.guess_map)
-                break
-
-            os.system("clear") if os.name == "posix" else os.system("cls")
-            print(f"Mines: {self.board.num_mines}")  # Reprint mines after clearing screen
-            print(f"Remaining: {self.board.num_mines - self.board.num_flags}")
