@@ -4,6 +4,7 @@ class GameController:
     def __init__(self, width=10, height=10, num_mines=None, max_players=4):
         self.board = Board(width, height, num_mines)
         self.max_players = max_players
+        self.required_players = max_players
         self.players = []
         self.state = "LOBBY"
         self.turn = 0
@@ -16,8 +17,12 @@ class GameController:
         self.players.append(player_id)
         return True
     
+    def set_required_players(self, count):
+        if self.state == "LOBBY":
+            self.required_players = count
+    
     def can_start(self):
-        return len(self.players) >= 1
+        return len(self.players) >= self.required_players
     
     def start(self):
         if self.can_start():

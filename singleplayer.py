@@ -4,7 +4,7 @@ from classes import ConsoleUI
 
 class SinglePlayerGame:
     def __init__(self, width=10, height=10, num_mines=None):
-        self.controller = GameController(width, height, num_mines)
+        self.controller = GameController(width, height, num_mines, 1)
         self.ui = ConsoleUI()
         self.player_id = "local"
 
@@ -12,7 +12,7 @@ class SinglePlayerGame:
         self.controller.start()
 
     def play(self):
-        while self.controller.state == "RUNNING":
+        while self.controller.state in ("RUNNING", "LOBBY"):
             os.system("clear") if os.name == "posix" else os.system("cls")
 
             print(f"Mines: {self.controller.board.num_mines}")

@@ -1,5 +1,4 @@
 import random
-import os
 
 cell_colours = {0: "\033[32m",
                 1: "\033[31m",
