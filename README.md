@@ -24,6 +24,8 @@ Or, you can download and extract the zip from [here](https://github.com/Stormpoo
 ```
 cd path/to/multiplayer-minesweeper
 python main.py host ## Starts a server
+[or]
 python main.py join "<server_ip>" <username> ## Joins server at <server_ip> as <username>
+[or]
 python main.py ## Starts a single-player game
 ```
