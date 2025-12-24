@@ -1,7 +1,7 @@
 import socket
 import threading
 import time
-from controller import GameController
+from minesweeper.controller import GameController
 from network.protocol import send, recv
 
 class MultiplayerServer:

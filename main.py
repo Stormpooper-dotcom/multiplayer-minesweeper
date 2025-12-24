@@ -1,6 +1,6 @@
 import sys
-from singleplayer import SinglePlayerGame
-from multiplayer import MultiplayerGame
+from minesweeper.singleplayer import SinglePlayerGame
+from minesweeper.multiplayer import MultiplayerGame
 from network.server import MultiplayerServer
 
 if __name__ == "__main__":

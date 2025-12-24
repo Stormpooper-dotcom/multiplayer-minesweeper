@@ -1,6 +1,6 @@
 import os
-from controller import GameController
-from classes import ConsoleUI
+from minesweeper.controller import GameController
+from frontends.console import ConsoleUI
 
 class SinglePlayerGame:
     def __init__(self, width=10, height=10, num_mines=None):

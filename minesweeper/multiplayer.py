@@ -1,6 +1,6 @@
 import os
 import time
-from classes import ConsoleUI
+from frontends.console import ConsoleUI
 from network.client import MultiplayerClient
 
 RESULT_MESSAGES = {

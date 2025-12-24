@@ -1,4 +1,4 @@
-from classes import Board
+from minesweeper.board import Board
 
 class GameController:
     def __init__(self, width=10, height=10, num_mines=None, max_players=4):
